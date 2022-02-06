@@ -1,0 +1,12 @@
+{
+  "name": "@ec-nordbund/auth-client",
+  "version": "0.0.0",
+  "description": "Gotrue replacement for custom netlify-cms build",
+  "main": "dist/index.js",
+  "scripts": {},
+  "author": "",
+  "license": "MIT",
+  "devDependencies": {
+    "typescript": "^4.5.5"
+  }
+}
