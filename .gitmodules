@@ -1,0 +1,3 @@
+[submodule "netlify-cms"]
+	path = netlify-cms
+	url = https://github.com/netlify/netlify-cms
