@@ -9,7 +9,7 @@ git am ../patches/cms/0003-remove-not-needed-backends-locales.patch
 git am ../patches/cms/0004-remove-not-needed-Widgets.patch
 git am ../patches/cms/0005-remove-not-needed-backends.patch
 # Install deps
-# yarn
+yarn
 # yarn bootsrap #?
 # Build
 yarn build:esm
