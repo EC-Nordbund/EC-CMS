@@ -1,0 +1,71 @@
+From e8ee358a361a6f9eb9c2ab32dbb6f41928c28b72 Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Sebastian=20Kr=C3=BCger?= <2pi_r2@gmx.de>
+Date: Sun, 6 Feb 2022 15:18:14 +0100
+Subject: [PATCH] remove not needed backends
+
+---
+ .../src/implementation.ts                     | 19 +++----------------
+ 1 file changed, 3 insertions(+), 16 deletions(-)
+
+diff --git a/packages/netlify-cms-backend-git-gateway/src/implementation.ts b/packages/netlify-cms-backend-git-gateway/src/implementation.ts
+index 1acf62a9..4f736d41 100644
+--- a/packages/netlify-cms-backend-git-gateway/src/implementation.ts
++++ b/packages/netlify-cms-backend-git-gateway/src/implementation.ts
+@@ -15,11 +15,8 @@ import {
+   PreviewState,
+ } from 'netlify-cms-lib-util';
+ import { GitHubBackend } from 'netlify-cms-backend-github';
+-import { GitLabBackend } from 'netlify-cms-backend-gitlab';
+-import { BitbucketBackend, API as BitBucketAPI } from 'netlify-cms-backend-bitbucket';
+ 
+ import GitHubAPI from './GitHubAPI';
+-import GitLabAPI from './GitLabAPI';
+ import AuthenticationPage from './AuthenticationPage';
+ import { getClient } from './netlify-lfs-client';
+ 
+@@ -134,7 +131,7 @@ async function apiGet(path: string) {
+ 
+ export default class GitGateway implements Implementation {
+   config: Config;
+-  api?: GitHubAPI | GitLabAPI | BitBucketAPI;
++  api?: GitHubAPI;
+   branch: string;
+   squashMerges: boolean;
+   cmsLabelPrefix: string;
+@@ -145,14 +142,14 @@ export default class GitGateway implements Implementation {
+   backendType: string | null;
+   apiUrl: string;
+   authClient?: AuthClient;
+-  backend: GitHubBackend | GitLabBackend | BitbucketBackend | null;
++  backend: GitHubBackend | null;
+   acceptRoles?: string[];
+   tokenPromise?: () => Promise<string>;
+   _largeMediaClientPromise?: Promise<Client>;
+ 
+   options: {
+     proxied: boolean;
+-    API: GitHubAPI | GitLabAPI | BitBucketAPI | null;
++    API: GitHubAPI;
+     initialWorkflowStatus: string;
+   };
+   constructor(config: Config, options = {}) {
+@@ -347,16 +344,6 @@ export default class GitGateway implements Implementation {
+       if (this.backendType === 'github') {
+         this.api = new GitHubAPI(apiConfig);
+         this.backend = new GitHubBackend(this.config, { ...this.options, API: this.api });
+-      } else if (this.backendType === 'gitlab') {
+-        this.api = new GitLabAPI(apiConfig);
+-        this.backend = new GitLabBackend(this.config, { ...this.options, API: this.api });
+-      } else if (this.backendType === 'bitbucket') {
+-        this.api = new BitBucketAPI({
+-          ...apiConfig,
+-          requestFunction: this.requestFunction,
+-          hasWriteAccess: async () => true,
+-        });
+-        this.backend = new BitbucketBackend(this.config, { ...this.options, API: this.api });
+       }
+ 
+       if (!(await this.api!.hasWriteAccess())) {
+-- 
+2.33.0.windows.2
+

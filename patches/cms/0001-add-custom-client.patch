@@ -1,0 +1,138 @@
+From 52124a011958657ab7968713f6ac51775bafd121 Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Sebastian=20Kr=C3=BCger?= <2pi_r2@gmx.de>
+Date: Sun, 6 Feb 2022 14:10:01 +0100
+Subject: [PATCH] add custom client
+
+---
+ .../src/client.ts                             | 108 ++++++++++++++++++
+ .../src/implementation.ts                     |   2 +-
+ 2 files changed, 109 insertions(+), 1 deletion(-)
+ create mode 100644 packages/netlify-cms-backend-git-gateway/src/client.ts
+
+diff --git a/packages/netlify-cms-backend-git-gateway/src/client.ts b/packages/netlify-cms-backend-git-gateway/src/client.ts
+new file mode 100644
+index 00000000..6ddb89d1
+--- /dev/null
++++ b/packages/netlify-cms-backend-git-gateway/src/client.ts
+@@ -0,0 +1,108 @@
++const toVerwaltung = () => location.href = '/verwaltung'
++const simpleJWTParser = (token: string) => JSON.parse(atob(token.split('.')[1]))
++
++export default class GoTrue {
++  login() {
++    toVerwaltung()
++    throw new Error("Operation not allowed!");
++  }
++
++  currentUser() {
++    if(currentUser) return currentUser;
++
++    return User.recoverSession();
++  }
++
++  constructor() {
++    if(!this.currentUser()) {
++      toVerwaltung()
++    }
++  }
++}
++
++setInterval(() => {
++  if(currentUser) currentUser.checkExp()
++}, 1000 * 60 * 15)
++
++let currentUser: User | null = null;
++
++class User {
++  token: string
++
++  warned_10min = false
++  warned_5min = false
++  warned_1min = false
++
++  get user_metadata() {
++    return this.user_data.user_metadata;
++  }
++
++  get email() {
++    return this.user_data.email;
++  }
++
++  checkExp() {
++    const time = Math.floor(this.expTime / 1000 / 60)
++
++    if(time < 11 && !this.warned_10min) {
++      alert('ACHTUNG! In weniger als 10 minuten wirst du automatisch ausgeloggt! Bitte speicher alles und logge dich neu ein!')
++      this.warned_10min = true
++    }
++
++    if(time < 6 && !this.warned_5min) {
++      alert('ACHTUNG! In weniger als 5 minuten wirst du automatisch ausgeloggt! Bitte speicher alles und logge dich neu ein!')
++      this.warned_5min = true
++    }
++
++
++    if(time < 2 && !this.warned_1min) {
++      alert('ACHTUNG! In weniger als einer minute wirst du automatisch ausgeloggt! Bitte speicher alles und logge dich neu ein!')
++      this.warned_1min = true
++    }
++  }
++
++  get expTime() {
++    return this.user_data.exp * 1000 - new Date().getTime()
++  }
++
++  constructor(token: string, private user_data: any) {
++    this.token = token;
++    currentUser = this;
++  }
++
++  static removeSavedSession() {
++    localStorage.removeItem('@auth-cms');
++    localStorage.removeItem('@auth');
++  }
++
++  static recoverSession() {
++    const token = localStorage.getItem('@auth-cms');
++
++    if (token) {
++      const data =  simpleJWTParser(token);
++
++
++      if(data.exp * 1000 - 60 * 1000 * 60 < new Date().getTime()) {
++        // Ist abgelaufen oder läuft bald ab
++
++        User.removeSavedSession()
++
++        return null;
++      }
++
++      return new User(token, data)
++    }
++
++    return null;
++  }
++
++  logout() {
++    User.removeSavedSession()
++    toVerwaltung()
++  }
++
++
++  jwt() {
++    return this.token;
++  }
++}
+diff --git a/packages/netlify-cms-backend-git-gateway/src/implementation.ts b/packages/netlify-cms-backend-git-gateway/src/implementation.ts
+index 158124d3..1acf62a9 100644
+--- a/packages/netlify-cms-backend-git-gateway/src/implementation.ts
++++ b/packages/netlify-cms-backend-git-gateway/src/implementation.ts
+@@ -1,4 +1,4 @@
+-import GoTrue from 'gotrue-js';
++import GoTrue from './client';
+ import jwtDecode from 'jwt-decode';
+ import { get, pick, intersection } from 'lodash';
+ import ini from 'ini';
+-- 
+2.33.0.windows.2
+

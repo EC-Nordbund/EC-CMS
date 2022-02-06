@@ -1,0 +1,27 @@
+From 7bb5729407326414b956172e892236909f027ad4 Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Sebastian=20Kr=C3=BCger?= <2pi_r2@gmx.de>
+Date: Sun, 6 Feb 2022 14:48:41 +0100
+Subject: [PATCH] remove not needed Widgets
+
+---
+ packages/netlify-cms-app/src/extensions.js | 3 ---
+ 1 file changed, 3 deletions(-)
+
+diff --git a/packages/netlify-cms-app/src/extensions.js b/packages/netlify-cms-app/src/extensions.js
+index 232827e0..4cb88016 100644
+--- a/packages/netlify-cms-app/src/extensions.js
++++ b/packages/netlify-cms-app/src/extensions.js
+@@ -39,10 +39,7 @@ CMS.registerWidget([
+   NetlifyCmsWidgetRelation.Widget(),
+   NetlifyCmsWidgetBoolean.Widget(),
+   NetlifyCmsWidgetMap.Widget(),
+-  NetlifyCmsWidgetDate.Widget(),
+   NetlifyCmsWidgetDatetime.Widget(),
+-  NetlifyCmsWidgetCode.Widget(),
+-  NetlifyCmsWidgetColorString.Widget(),
+ ]);
+ CMS.registerEditorComponent(image);
+ CMS.registerEditorComponent({
+-- 
+2.33.0.windows.2
+

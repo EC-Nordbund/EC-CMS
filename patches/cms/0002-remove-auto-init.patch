@@ -1,0 +1,31 @@
+From f03bb6498057c35c36aba3040bd59b4cecdbb4be Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Sebastian=20Kr=C3=BCger?= <2pi_r2@gmx.de>
+Date: Sun, 6 Feb 2022 14:12:22 +0100
+Subject: [PATCH] remove auto init
+
+---
+ packages/netlify-cms/src/index.js | 8 --------
+ 1 file changed, 8 deletions(-)
+
+diff --git a/packages/netlify-cms/src/index.js b/packages/netlify-cms/src/index.js
+index f74f7493..4d51eee9 100644
+--- a/packages/netlify-cms/src/index.js
++++ b/packages/netlify-cms/src/index.js
+@@ -3,14 +3,6 @@ import React from 'react';
+ import { NetlifyCmsApp as CMS } from 'netlify-cms-app/dist/esm';
+ import './extensions';
+ 
+-/**
+- * Load Netlify CMS automatically if `window.CMS_MANUAL_INIT` is set.
+- */
+-if (!window.CMS_MANUAL_INIT) {
+-  CMS.init();
+-} else {
+-  console.log('`window.CMS_MANUAL_INIT` flag set, skipping automatic initialization.');
+-}
+ 
+ /**
+  * Add extension hooks to global scope.
+-- 
+2.33.0.windows.2
+

@@ -19,7 +19,6 @@ export default class GoTrue {
     }
   }
 }
-// Add someting for a test
 
 setInterval(() => {
   if(currentUser) currentUser.checkExp()
