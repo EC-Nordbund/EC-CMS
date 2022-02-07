@@ -12,8 +12,8 @@ git am ../patches/cms/0001-add-custom-client.patch
 git am ../patches/cms/0002-remove-auto-init.patch
 git am ../patches/cms/0003-remove-not-needed-backends-locales.patch
 git am ../patches/cms/0005-remove-not-needed-backends.patch
-git am ../patches/cms/0006-remove-create-react-class.patch
 git am ../patches/cms/0007-remove-not-needed-Widgets.patch
+git am ../patches/cms/0008-remove-create-react-class.patch
 # Install deps
 yarn
 # yarn bootsrap #?
