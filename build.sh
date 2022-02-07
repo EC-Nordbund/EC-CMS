@@ -3,6 +3,10 @@ cd netlify-cms
 git pull
 git checkout master
 # Applie patches
+
+git config --global user.email "app@ec-nordbund.de"
+git config --global user.name "Developer"
+
 git am ../patches/cms/0001-add-custom-client.patch
 git am ../patches/cms/0002-remove-auto-init.patch
 git am ../patches/cms/0003-remove-not-needed-backends-locales.patch
