@@ -1,0 +1,38 @@
+From f28ee82f1d2dbc36709476db2991dc4894dea6d3 Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Sebastian=20Kr=C3=BCger?= <2pi_r2@gmx.de>
+Date: Mon, 7 Feb 2022 09:53:17 +0100
+Subject: [PATCH] remove not needed Widgets
+
+---
+ packages/netlify-cms-app/src/extensions.js | 6 ------
+ 1 file changed, 6 deletions(-)
+
+diff --git a/packages/netlify-cms-app/src/extensions.js b/packages/netlify-cms-app/src/extensions.js
+index 9a71b254..317f86dd 100644
+--- a/packages/netlify-cms-app/src/extensions.js
++++ b/packages/netlify-cms-app/src/extensions.js
+@@ -21,10 +21,7 @@ import NetlifyCmsWidgetObject from 'netlify-cms-widget-object';
+ import NetlifyCmsWidgetRelation from 'netlify-cms-widget-relation';
+ import NetlifyCmsWidgetBoolean from 'netlify-cms-widget-boolean';
+ import NetlifyCmsWidgetMap from 'netlify-cms-widget-map';
+-import NetlifyCmsWidgetDate from 'netlify-cms-widget-date';
+ import NetlifyCmsWidgetDatetime from 'netlify-cms-widget-datetime';
+-import NetlifyCmsWidgetCode from 'netlify-cms-widget-code';
+-import NetlifyCmsWidgetColorString from 'netlify-cms-widget-colorstring';
+ // Editor Components
+ import image from 'netlify-cms-editor-component-image';
+ // Locales
+@@ -51,10 +48,7 @@ CMS.registerWidget([
+   NetlifyCmsWidgetRelation.Widget(),
+   NetlifyCmsWidgetBoolean.Widget(),
+   NetlifyCmsWidgetMap.Widget(),
+-  NetlifyCmsWidgetDate.Widget(),
+   NetlifyCmsWidgetDatetime.Widget(),
+-  NetlifyCmsWidgetCode.Widget(),
+-  NetlifyCmsWidgetColorString.Widget(),
+ ]);
+ CMS.registerEditorComponent(image);
+ CMS.registerEditorComponent({
+-- 
+2.33.0.windows.2
+
