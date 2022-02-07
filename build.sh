@@ -6,6 +6,7 @@ git checkout master
 
 git config --global user.email "app@ec-nordbund.de"
 git config --global user.name "Developer"
+git config pull.rebase true
 
 git am ../patches/cms/0001-add-custom-client.patch
 git am ../patches/cms/0002-remove-auto-init.patch
