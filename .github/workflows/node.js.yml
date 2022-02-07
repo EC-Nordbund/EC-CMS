@@ -25,4 +25,5 @@ jobs:
       uses: actions/cache@v2.1.7
       with:
         path: ./netlify-cms/node_modules
+        key: NETLIFY-YARN
     - run: sh build.sh
