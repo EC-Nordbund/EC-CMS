@@ -1,9 +1,5 @@
-yarn
 cd netlify-cms
-git pull
-git checkout master
-# Applie patches
-
+# Apply patches
 git config --global user.email "app@ec-nordbund.de"
 git config --global user.name "Developer"
 git config pull.rebase true
@@ -16,7 +12,6 @@ git am ../patches/cms/0007-remove-not-needed-Widgets.patch
 git am ../patches/cms/0008-remove-create-react-class.patch
 # Install deps
 yarn
-# yarn bootsrap #?
 # Build
 cd packages
 cd netlify-cms-app
@@ -68,5 +63,8 @@ yarn build:esm
 cd ../netlify-cms
 yarn build
 cd ../../..
-yarn rollup -c
-ls dist
+mkdir dist
+cp netlify-cms/packages/netlify-cms/dist/netlify-cms.js dist/netlify-cms.js
+cp main.js dist/main.js
+cp index.html dist/index.html
+ls -l dist

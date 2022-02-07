@@ -1,6 +1,6 @@
 const toVerwaltung = () => {location.href='/verwaltung'}
 
-const cmsPromise = import('./netlify-cms/packages/netlify-cms/dist/netlify-cms')
+const cmsPromise = import('./netlify-cms.js')
 
 const token = localStorage.getItem('@auth-cms')
 if(!token) toVerwaltung()
