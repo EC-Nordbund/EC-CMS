@@ -23,9 +23,5 @@ jobs:
       with:
         node-version: 16.x
         cache: 'yarn'
-    - name: Cache
-      uses: actions/cache@v2.1.7
-      with:
-        path: ./netlify-cms/node_modules
-        key: NETLIFY-YARN
+        cache-dependency-path: ./netlify-cms/yarn.lock
     - run: sh build.sh
