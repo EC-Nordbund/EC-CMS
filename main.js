@@ -1,20 +1,18 @@
-const toVerwaltung = () => {location.href='/verwaltung'}
-
+const toVerwaltung = () => {localStorage.removeItem('@auth-cms');location.href='/verwaltung'}
 const cmsPromise = import('./netlify-cms.js')
-
 const token = localStorage.getItem('@auth-cms')
-if(!token) toVerwaltung()
 
-const configPromise = fetch('https://api.ec-nordbund.de/cms/config', {
-  headers: {
-    auth: token,
-  }
-}).then(res => {
-  if(res.status !== 200) {
-    toVerwaltung()
-  } 
-  return res.json()  
-}).then(async config => {
+(async () => {
+  if(!token) return toVerwaltung()
+
+  const res = await fetch('https://api.ec-nordbund.de/cms/config', {
+    headers: {
+      authorization: token,
+    }
+  })
+
+  if(res.status !== 200) return toVerwaltung()
+  const c = await res.json()
   await cmsPromise
-  CMS.init(config)
-})
+  CMS.init(c)
+})()
